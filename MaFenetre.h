@@ -27,18 +27,16 @@ private:
     CVString m_vet;
     CMatString m_mat;
     QTableWidget *m_tab;
-    map<string,double> freqMaladie;
-    set<string> maladies;
+    map<string,double> m_freqMaladie;
+    set<string> m_maladies;
 
     void initComboBox(int column, QComboBox *m_box);
-    void setLab();
 
-    double getPrediction();
+    string getPrediction();
 signals:
 
 public slots:
     void setPredire();
-    void setCouleur();
 };
 
 #endif // MAFENETRE_H
