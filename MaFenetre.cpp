@@ -3,9 +3,9 @@
 
 MaFenetre::MaFenetre(QWidget *parent) : QMainWindow(parent)
 {
-    read_csv (m_mat, m_vet, "data.csv");
+    read_csv (m_mat, m_vet, "/home/p16001500/build-ecbd-Desktop-Debug/data.csv");
 
-    setFixedSize(800,600);
+    setFixedSize(800,600);  
 
     m_com1= new QComboBox(this);
     m_com1->move(200,50);
@@ -33,8 +33,17 @@ MaFenetre::MaFenetre(QWidget *parent) : QMainWindow(parent)
     m_tab->setColumnCount(m_vet.size());
 
     for(unsigned i(0);i<m_mat.size();++i)
-        for(unsigned j(0);j<m_vet.size();++j)
+        for(unsigned j(0);j<m_vet.size();++j){
             m_tab->setItem(i,j,new QTableWidgetItem(m_mat[i][j].c_str()));
+            if(j == m_vet.size()-1){
+                this->m_freqMaladie[m_mat[i][j]]=this->m_freqMaladie.at(m_mat[i][j])+1;
+                m_maladies.insert(m_mat[i][j]);
+            }
+    }
+
+    for (string x : m_maladies)
+        m_freqMaladie[x] = m_freqMaladie[x]/m_mat.size();
+
 
     for(unsigned i(0);i<m_vet.size();++i)
         m_tab->setHorizontalHeaderItem(i,new QTableWidgetItem(m_vet[i].c_str()));
@@ -46,6 +55,20 @@ MaFenetre::MaFenetre(QWidget *parent) : QMainWindow(parent)
     // Associer signaux et les slots
     connect(m_bou,SIGNAL(clicked(bool)),this,SLOT(setPredire()));
     connect(m_com1, SIGNAL(currentIndexChanged(const QString &)),this, SLOT(setCouleur()));
+}
+
+string MaFenetre::getPrediction(){
+// fréquence maladie * conf de symptome avec sa maladie
+    string maladie;
+    double score;
+
+     for(string maladie:m_maladies){
+         for(int i(0);i<m_mat.size();++i){
+             if(m_mat[i][3] == maladie && m_mat[i][0]){
+
+             }
+         }
+     }
 }
 
 void MaFenetre::setPredire(){

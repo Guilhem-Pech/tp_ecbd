@@ -9,5 +9,3 @@ HEADERS += \
     MaFenetre.h \
     charger_csv.h
 
-DISTFILES += \
-    ../build-ecbd-Desktop-Debug/data.csv
